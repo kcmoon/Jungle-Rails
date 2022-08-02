@@ -1,4 +1,3 @@
-const configYargs = require("webpack-cli/bin/config/config-yargs")
 
 describe('Homepage Tests', () => {
   
