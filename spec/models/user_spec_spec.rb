@@ -11,13 +11,13 @@ RSpec.describe User, type: :model do
       
       #password confirmation are required
       it "should fail if password and confirmation do not match" do
-        @user = User.create( first_name:"Kenny", last_name:"Moon", email: "a@a.com", password: "password" password_confirmation: "passwrd")
+        @user = User.create( first_name:"Kenny", last_name:"Moon", email: "a@a.com", password: "password", password_confirmation: "passwrd")
         expect(@user).to be_invalid
       end 
 
       #passwords are required
       it "should fail if password missing" do
-        @user = User.create( first_name:"Kenny", last_name:"Moon", email: "a@a.com", password: nil password_confirmation: nil)
+        @user = User.create( first_name:"Kenny", last_name:"Moon", email: "a@a.com", password: nil, password_confirmation: nil)
         expect(@user).to be_invalid
       end    
 
@@ -49,10 +49,11 @@ RSpec.describe User, type: :model do
 
     #last name required
     it "should fail if last name missing" do
-      @user = User.create( first_name:"Kenny", last_name: nil email: "a@a.com", password: "password", password_confirmation: "password")
+      @user = User.create( first_name:"Kenny", last_name: nil, email: "a@a.com", password: "password", password_confirmation: "password")
       expect(@user).to be_invalid
     end
 
+  end
   describe ".authenticate_with_credentials" do
 
     it "Should return an instance of the user object if the email and password are correct" do
@@ -81,13 +82,13 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
       auth = User.authenticate_with_credentials("AB@ab.com", "password")
       expect(auth).to eq(@user)
-      auth2 = User.authenticate_with_credentials("Ab@b.COM", "password")
+      auth2 = User.authenticate_with_credentials("Ab@ab.COM", "password")
       expect(auth2).to eq(@user)
-      @user2 = User.create(first_name: "Kenny", last_name: "Moon", email: "AB@AB.com", password: "password", password_confirmation: "password")
+      @user2 = User.create(first_name: "Kenny", last_name: "Moon", email: "TEST@TEST.COM", password: "password", password_confirmation: "password")
       expect(@user2).to be_valid
-      auth3 = User.authenticate_with_credentials("AB@ab.com", "password")
+      auth3 = User.authenticate_with_credentials("TEST@test.com", "password")
       expect(auth3).to eq(@user2)
-      auth4 = User.authenticate_with_credentials("Ab@Ab.COM", "password")
+      auth4 = User.authenticate_with_credentials("tEst@teSt.COM", "password")
       expect(auth4).to eq(@user2)
     end
 
